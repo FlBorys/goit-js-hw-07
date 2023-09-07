@@ -6,7 +6,7 @@ const cardMarkup = createPictureCardsMarup(galleryItems);
 
 pictureContainer.insertAdjacentHTML('beforeend', cardMarkup);
 pictureContainer.addEventListener('click', choosePictureCard);
-window.addEventListener('keyup', closeModalWindow);
+
 
 function createPictureCardsMarup(elements) {
     return elements.map(({ preview, original, description }) => {
@@ -33,11 +33,13 @@ function choosePictureCard(evt) {
         lightBox = basicLightbox.create(`<img src="${evt.target.dataset.source}" alt="${evt.target.alt}">`);
         lightBox.show();
     };
+    window.addEventListener('keydown', closeModalWindow);
 };
 
 function closeModalWindow(e) {
     if (e.key === 'Escape') {
         lightBox.close();
+        window.removeEventListener('keydown', closeModalWindow);
     }
 }
 
